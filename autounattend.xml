@@ -435,7 +435,7 @@ function Set-ServiceStartup {
             "Manual" { Set-Service -Name $Name -StartupType Manual }
             "Disabled" { Stop-Service -Name $Name -Force -ErrorAction SilentlyContinue; Set-Service -Name $Name -StartupType Disabled }
         }
-        Write-Host "Configured $Name -&amp;gt; $StartupType" -ForegroundColor Green
+        Write-Host "Configured $Name -> $StartupType" -ForegroundColor Green
     } catch { Write-Host "Failed $Name" -ForegroundColor Yellow }
 }
 
@@ -443,6 +443,9 @@ foreach ($svc in $Services) { Set-ServiceStartup -Name $svc.Name -StartupType $s
 		</File>
 		<File path="C:\Windows\Setup\Scripts\Specialize.ps1">
 $scripts = @(
+	{
+		&amp; 'C:\Windows\Setup\Scripts\unattend-01.ps1';
+	};
     {
         reg.exe add "HKLM\SYSTEM\Setup\MoSetup" /v AllowUpgradesWithUnsupportedTPMOrCPU /t REG_DWORD /d 1 /f;
     };
@@ -482,9 +485,6 @@ $scripts = @(
         reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f;
         reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DisableWindowsUpdateAccess /t REG_DWORD /d 1 /f;
     };
-	{
-		&amp; 'C:\Windows\Setup\Scripts\unattend-01.ps1';
-	};
 );
 
 &amp; {
