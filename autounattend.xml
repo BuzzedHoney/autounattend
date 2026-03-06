@@ -217,14 +217,8 @@ $htmlAccentColor = '#0078D4';
     $palette[ $index++ ] = $accentColor.A;
 	Set-ItemProperty @params -Value $palette -Type 'Binary' -Force;
 };
-		</File>
+		</ExtractScript>
 		<File path="C:\Windows\Setup\Scripts\unattend-01.ps1">
-if (-not ([Security.Principal.WindowsPrincipal] `
-    [Security.Principal.WindowsIdentity]::GetCurrent()
-).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
-    Write-Host "Run PowerShell as Administrator." -ForegroundColor Red
-    exit
-}
 
 Write-Host "`nApplying Service Tweaks..." -ForegroundColor Cyan
 
