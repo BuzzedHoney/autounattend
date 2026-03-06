@@ -482,6 +482,9 @@ $scripts = @(
         reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f;
         reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v DisableWindowsUpdateAccess /t REG_DWORD /d 1 /f;
     };
+	{
+		&amp; 'C:\Windows\Setup\Scripts\unattend-01.ps1';
+	};
 );
 
 &amp; {
@@ -631,10 +634,7 @@ $scripts = @(
     {
         reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v "UnattendedSetup" /t REG_SZ /d "powershell.exe -WindowStyle \""Normal\"" -ExecutionPolicy \""Unrestricted\"" -NoProfile -File \""C:\Windows\Setup\Scripts\UserOnce.ps1\""" /f;
     };
-    {
-        &amp; 'C:\Windows\Setup\Scripts\unattend-01.ps1';
-    };
-
+			
 );
 
 &amp; {
