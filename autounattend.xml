@@ -219,8 +219,12 @@ $htmlAccentColor = '#0078D4';
 };
 		</ExtractScript>
 		<File path="C:\Windows\Setup\Scripts\unattend-01.ps1">
-
-Write-Host "`nApplying Service Tweaks..." -ForegroundColor Cyan
+if (-not ([Security.Principal.WindowsPrincipal] `
+    [Security.Principal.WindowsIdentity]::GetCurrent()
+).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
+    Write-Host "Run PowerShell as Administrator." -ForegroundColor Red
+    exit
+}
 
 $Services = @(
     @{Name="ALG"; StartupType="Manual"},
